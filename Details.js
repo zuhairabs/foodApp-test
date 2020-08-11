@@ -6,15 +6,19 @@ import {
     Button,
     Image,
     ImageBackground,
-    Dimensions
+	StatusBar,
+    Dimensions,
+	ScrollView
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { LinearGradient } from "expo-linear-gradient";
 
-export default class Home extends React.Component {
+export default class Details extends React.Component {
 
     render() {
         return (
             <View style={styles.container}>
+		<StatusBar barStyle="light-content" />
                <ImageBackground 
                     source={require('./asset/header_detail.png')}
                     resizeMode="stretch"
@@ -27,7 +31,7 @@ export default class Home extends React.Component {
                    />
                </View>
                <View style={styles.back}>
-                    <Ionicons 
+                    <Ionicons
                         name="ios-arrow-round-back"
                         color="white"
                         size={35}
@@ -35,9 +39,22 @@ export default class Home extends React.Component {
                     />
                </View>
                </ImageBackground>
-               <View style={styles.footer}>
-
-               </View>
+               <ScrollView style={styles.footer}>
+		<View style={styles.status}>
+		<Text style={{color:'green'}}>AVAILABLE</Text>
+		</View>
+		<Text style={styles.textprice}>{this.props.navigation.state.params.price}</Text>
+		<Text numberOfLines={2} style={styles.name}>{this.props.navigation.state.params.name.toUpperCase()}</Text>
+		<Text style={styles.textDetails}>The template details auto text code displays the complete template details, including attribute details and metric details.</Text>
+		<LinearGradient 
+		start={{x: 0, y: 1}} 
+		end={{x: 1, y: 0}}
+		colors={['#009245', '#8cc631']}
+		style={styles.button}
+		>
+			<Text style={styles.textOrder}>ORDER NOW</Text>
+		</LinearGradient>
+               </ScrollView>
             </View>
 
         )
@@ -73,5 +90,42 @@ var styles = StyleSheet.create({
         left: 0,
         marginTop: 30,
         marginLeft: 15
-    }
+    },
+	status: {
+		paddingVertical:3,
+		borderRadius:50,
+		borderColor:'green',
+		justifyContent:'center',
+		alignItems:'center',
+		width:100,
+		borderWidth:1
+	},
+	textprice: {
+		color:'green',
+		marginTop:20,
+		fontWeight: 'bold',
+		fontSize:30
+	},
+	name: {
+		color: '#3e3c3e',
+		fontWeight: 'bold',
+		fontSize: 45,
+		marginTop:5
+	},
+	textDetails: {
+		color: 'gray',
+		marginTop: 10
+	},
+	button: {
+		justifyContent:'center',
+		alignItems:'center',
+		marginTop:30,
+		paddingVertical: 10,
+		borderRadius:100
+	},
+	textOrder: {
+		color: 'white',
+		fontWeight:'bold',
+		fontSize:18
+	}
 });
